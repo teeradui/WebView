@@ -36,7 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.parse('https://flutter.dev'));
+      //..loadRequest(Uri.parse('https://flutter.dev'));
+      ..loadFlutterAsset('assets/index.html');
   }
 
   @override
