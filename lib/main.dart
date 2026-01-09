@@ -31,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late WebViewController _controller;
+  late WebViewController _controller1;
+  late WebViewController _controller2;
 
   @override
   void initState() {
@@ -54,9 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
             return NavigationDecision.prevent;
           },
         ),
-      )
-      ..loadRequest(Uri.parse("https://flutter.dev/"));
-      //..loadFlutterAsset('assets/index.html');
+      );
+    _controller.loadRequest(Uri.parse("https://flutter.dev/"));
+    _controller1 = WebViewController()..loadFlutterAsset('assets/index.html');
+    _controller2 = WebViewController()..loadHtmlString('''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>WebView</title></head><body><h1>WebView meow meow</h1></body></html>''',);
   }
 
   @override
@@ -88,7 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: WebViewWidget(controller: _controller),
+      body: Column(
+        children: [
+          Expanded(child: WebViewWidget(controller: _controller1)),
+          const Divider(thickness: 2, height: 1),
+          Expanded(child: WebViewWidget(controller: _controller2)),
+        ],
+      ),
     );
   }
 }
